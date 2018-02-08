@@ -1,5 +1,7 @@
 # OpenShift Examples - CI/CD Pipeline
-OpenShift can ... This git repo contains an intentionally simple example of ...
+OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
+
+This git repo contains an intentionally simple example of a software pipeline.  It allows you ....
 
 Here's what it looks like:
 
@@ -20,7 +22,11 @@ There is a template for creating all the components of this example. Use the oc 
  > Create a new project, select `Import YAML/JSON` and then upload the raw file from this repo: `pipeline_instant_template.yaml`.
 
 ## Why pipelines?
-TBD...
+The most obvious benefits of CI/CD pipelines are:
+* Deliver software more efficiently and rapidly
+* Free up developer's time from manual build/release processes
+* Standardize the testing process
+*
 
 ## How does this work and how can I configure it?
 TBD.
