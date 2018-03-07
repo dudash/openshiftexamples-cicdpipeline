@@ -25,7 +25,7 @@ There is a template for creating all the components of this example. Use the oc 
 The most obvious benefits of CI/CD pipelines are:
 * Deliver software more efficiently and rapidly
 * Free up developer's time from manual build/release processes
-* Standardize the testing process
+* Standardize a process that requires testing before release
 *
 
 ## How does this work and how can I configure it?
