@@ -38,13 +38,13 @@ TBD
 
 ### Chocolate - External Jenkins
 If you've already got CI/CD setup via Jenkins and you just want to hook this demo up into that, you can!
-TBD
+Coming Soon.
 
 
 ## About the code / software architecture
 The parts in action here are:
 * A sample Node.js app
-* Jenkins [server image] (https://github.com/openshift/jenkins#installation)
+* Jenkins [server image](https://github.com/openshift/jenkins#installation)
 	* [OpenShift client plugin](https://github.com/openshift/jenkins-client-plugin) (newer OpenShift installs)
 	* [OpenShift Jenkins plugin](https://github.com/openshift/jenkins-plugin) (older OpenShift installs)
 * Jenkins [slave images](https://access.redhat.com/containers/#/search/jenkins%2520slave)
