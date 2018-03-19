@@ -26,7 +26,8 @@ The most obvious benefits of CI/CD pipelines are:
 * Deliver software more efficiently and rapidly
 * Free up developer's time from manual build/release processes
 * Standardize a process that requires testing before release
-*
+* Automate delivery so that if it passes test it will work in production
+
 
 ## How does this work and how can I configure it?
 TBD.
@@ -40,6 +41,14 @@ The parts in action here are:
 * Instant app template YAML file (to create/configure everything easily)
 * Key platform components that enable this example
 	* TBD
+
+## References and other links to check out
+* https://docs.openshift.com/container-platform/3.7/dev_guide/dev_tutorials/openshift_pipeline.html
+* https://blog.openshift.com/using-openshift-pipeline-plugin-external-jenkins/
+* https://docs.openshift.com/container-platform/3.7/install_config/configuring_pipeline_execution.html
+* https://blog.openshift.com/cross-cluster-image-promotion-techniques/
+* https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/
+* https://github.com/OpenShiftDemos/openshift-cd-demo
 
 
 ## License
