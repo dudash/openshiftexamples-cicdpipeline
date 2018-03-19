@@ -26,7 +26,7 @@ The most obvious benefits of CI/CD pipelines are:
 * Deliver software more efficiently and rapidly
 * Free up developer's time from manual build/release processes
 * Standardize a process that requires testing before release
-* Automate delivery so that if it passes test it will work in production
+* Track the efficiency of releases and gain insight into (and control over) each step
 
 
 ## How does this work and how can I configure it?
@@ -43,17 +43,24 @@ TBD
 
 ## About the code / software architecture
 The parts in action here are:
-* X
-* Y
-* Z
+* A sample Node.js app
+* Jenkins [server image] (https://github.com/openshift/jenkins#installation)
+	* [OpenShift client plugin](https://github.com/openshift/jenkins-client-plugin) (newer OpenShift installs)
+	* [OpenShift Jenkins plugin](https://github.com/openshift/jenkins-plugin) (older OpenShift installs)
+* Jenkins [slave images](https://access.redhat.com/containers/#/search/jenkins%2520slave)
 * Instant app template YAML file (to create/configure everything easily)
 * Key platform components that enable this example
-	* TBD
+	* Projects and Role Based Access Control (RBAC)
+	* Integration with Jenkins
+	* Source code building via s2i
+	* Container building via BuildConfigs
+
 
 ## References and other links to check out
+* https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html
 * https://docs.openshift.com/container-platform/3.7/dev_guide/dev_tutorials/openshift_pipeline.html
-* https://blog.openshift.com/using-openshift-pipeline-plugin-external-jenkins/
 * https://docs.openshift.com/container-platform/3.7/install_config/configuring_pipeline_execution.html
+* https://blog.openshift.com/using-openshift-pipeline-plugin-external-jenkins/
 * https://blog.openshift.com/cross-cluster-image-promotion-techniques/
 * https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/
 * https://github.com/OpenShiftDemos/openshift-cd-demo
