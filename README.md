@@ -30,7 +30,15 @@ The most obvious benefits of CI/CD pipelines are:
 
 
 ## How does this work and how can I configure it?
-TBD.
+This demo comes in 2 flavors. Vanilla: auto-provisioned Jenkins master and slaves -AND- Chocolate: external Jenkins integration.  See below for the steps to configure each.
+
+### Vanilla - Auto-provisioning
+OpenShift can handle running your Jenkins severs automatically in containers that come with the platform.  This is easiest route with the least amount of configuration required.
+TBD
+
+### Chocolate - External Jenkins
+If you've already got CI/CD setup via Jenkins and you just want to hook this demo up into that, you can!
+TBD
 
 
 ## About the code / software architecture
