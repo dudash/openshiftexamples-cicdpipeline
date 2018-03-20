@@ -30,16 +30,18 @@ The most obvious benefits of CI/CD pipelines are:
 
 
 ## How does this work and how can I configure it?
-This demo comes in 2 flavors. Vanilla: auto-provisioned Jenkins master and slaves -AND- Chocolate: external Jenkins integration.  See below for the steps to configure each.
-
-### Vanilla - Auto-provisioning
-OpenShift can handle running your Jenkins severs automatically in containers that come with the platform.  This is easiest route with the least amount of configuration required.
-TBD
-
-### Chocolate - External Jenkins
-If you've already got CI/CD setup via Jenkins and you just want to hook this demo up into that, you can!
-Coming Soon.
-
+The Jenkins integration can come in different flavors. See below for some disucssion on each.
+* where does Jenkins live: in your project, in a global project, external to OpenShift
+	* openshift can autoprovision Jenkins
+	* you can pre-setup Jenkins to be shared by multiple projects
+	* if you've already got CI/CD setup via Jenkins and you just want to hook this demo up into that, you can!
+* how does the pipeline move images?
+* will you use slave builders?
+* where is the Jenkins file: in git, in the OpenShift template
+* what OpenShift integration hooks will you use?
+* does production have a separate cluster?
+* do you want to roll your own Jenkins image?
+	* the ones that come with OpenShift are tested to work, some things to be aware of if you roll your own are: X, Y, Z
 
 ## About the code / software architecture
 The parts in action here are:
