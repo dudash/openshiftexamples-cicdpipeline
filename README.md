@@ -10,7 +10,7 @@ Here's what it looks like:
 ###### :information_source: This example is based on OpenShift Container Platform version 3.7.  It could work with older versions but has not been tested.
 
 
-## How to run this?
+## How to put this in my cluster?
 First off, you need access to an OpenShift cluster.  Don't have an OpenShift cluster?  That's OK, download the CDK for free here: [https://developers.redhat.com/products/cdk/overview/][1]
 
 There are 2 templates for creating all the components of this example. It's broken into 2 to give an example of separating release manager vs. developer type roles.  Using the oc CLI tool.
@@ -19,7 +19,7 @@ There are 2 templates for creating all the components of this example. It's brok
 
  > `oc new-project jenkins`
  
- > `oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_jenkins_embeded`
+ > `oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/jenkins_setup.yaml`
 
 *AS A DEVELOPER OR ADMIN:*
 
@@ -29,6 +29,13 @@ There are 2 templates for creating all the components of this example. It's brok
 
 *If you don't like the CLI, another option is to create and project and import the template via the web console:*
  > Create a new project, select `Import YAML/JSON` and then upload the raw file from this repo: `pipeline_instant_template.yaml`.
+
+
+## How to use this?
+Once you've created the pipeline (as described above) you can kick off a new pipeline build via the CLI or the web console.
+
+The CLI command is:
+> `oc XXXX`
 
 
 ## Why pipelines?
@@ -53,7 +60,7 @@ The parts in action here are:
 	* Integration with Jenkins
 	* Source code building via s2i
 	* Container building via BuildConfigs
-	* Deployments via [image change triggers](https://docs.openshift.com/container-platform/3.7/dev_guide/builds/triggering_builds.html#image-change-triggers)
+	* Deployments via [image change triggers][3]
 
 
 ## Want to do something like this in your projects?
@@ -63,12 +70,13 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 	* you can pre-setup Jenkins to be shared by multiple projects
 	* if you've already got CI/CD setup via Jenkins and you just want to hook this demo up into that, you can!
 * how does the pipeline move images?
-* will you use slave builders?
+* will you use [slave builders][4]?
 * where is the Jenkins file: in git, in the OpenShift template
 * what OpenShift integration hooks will you use?
 * does production have a separate cluster?
 * do you want to roll your own Jenkins image?
-	* the ones that come with OpenShift are tested to work, some things to be aware of if you roll your own are: X, Y, Z
+	* the images that come with OpenShift are tested to work - if you roll your own to make sure any plugins used align with the platform version
+	* you can also [override the jenkins image with s2i][2]
 * coordinating individual microservice builds and running integration tests
 	* TBD
 
@@ -86,3 +94,6 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 Under the terms of the MIT.
 
 [1]: https://developers.redhat.com/products/cdk/overview/
+[2]: https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html#jenkins-as-s2i-builder
+[3]: https://docs.openshift.com/container-platform/3.7/dev_guide/builds/triggering_builds.html#image-change-triggers
+[4]: https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html#using-the-jenkins-kubernetes-plug-in-to-run-jobs
