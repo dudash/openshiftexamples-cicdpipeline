@@ -69,7 +69,7 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 * Will you use [slave builders][4]?
 * Where is the Jenkinsfile?
 	* in git - easy to manage independently
-	* embeded in an OpenShift BuildConfig template - doesn't reqire a git fetch
+	* embeded in an OpenShift BuildConfig template - doesn't reqire a git fetch, editable within OpenShift
 * What OpenShift integration hooks will you use?
 * Does production have a separate cluster?
 * Do you want to roll your own Jenkins image?

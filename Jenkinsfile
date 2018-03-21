@@ -6,12 +6,12 @@ def templateName = 'nodejs-mongodb-example'
 // and "openshift" directive/closure from the OpenShift Client Plugin for Jenkins.  Otherwise, the declarative pipeline engine
 // will not be fully engaged.
 pipeline {
-    agent {
-      node {
+    //agent {
+    //  node {
         // spin up a node.js slave pod to run this build on
-        label 'nodejs'
-      }
-    }
+    //    label 'nodejs'
+    //  }
+    //}
     options {
         // set a timeout of 20 minutes for this pipeline
         timeout(time: 20, unit: 'MINUTES')
