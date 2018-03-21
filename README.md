@@ -15,7 +15,10 @@ First off, you need access to an OpenShift cluster.  Don't have an OpenShift clu
 
 There are 2 scripts you can use for creating all the projects and required components for this example.
 
+This is an *optional* script that will create an separate CI/CD project for the Jenkins server to deploy into.  If you don't run this, OpenShift will autoprovision Jenkins within the pipeline-app project.  
  > `jenkins_setup.sh`
+
+(Wait for Jenkins to finish starting the `jenkins` pod before running the next script - `oc get pods`)
 
  > `pipeline_setup.sh`
 

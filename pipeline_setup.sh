@@ -8,6 +8,9 @@ oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n pipeline-a
 oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n pipeline-app-staging
 oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n pipeline-app-prod
 
-# Switch to the dev project and create the app from a template
+# Switch to the dev project and create the pipeline build from a template
 oc project pipeline-app
 oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_instant_template.yaml
+# Give this project an edit role too, in case we didn't want to have an external jenkins in cicd
+oc policy add-role-to-user edit -z jenkins -n pipeline-app-staging
+oc policy add-role-to-user edit -z jenkins -n pipeline-app-prod
