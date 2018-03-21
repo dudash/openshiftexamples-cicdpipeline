@@ -1,7 +1,7 @@
 # OpenShift Examples - CI/CD Pipeline
 OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
 
-This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. The pipeline will perform an app build, do some automated testing, deploy the app to a QA environment, and provide an easy button to promote the app to a separate production project.
+This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. The pipeline will perform an app build, do some automated testing, deploy the app to a QA environment, and then provide notification that the app is ready to be deployed to a separate production project.  If it fails at any point, the pipeline is stopped and the error is logged.
 
 Here's what it looks like:
 
@@ -13,22 +13,12 @@ Here's what it looks like:
 ## How to put this in my cluster?
 First off, you need access to an OpenShift cluster.  Don't have an OpenShift cluster?  That's OK, download the CDK for free here: [https://developers.redhat.com/products/cdk/overview/][1]
 
-There are 2 templates for creating all the components of this example. It's broken into 2 to give an example of separating release manager vs. developer type roles.  Using the oc CLI tool.
+There are 2 scripts you can use for creating all the projects and required components for this example.
 
-*AS AN ADMIN:*
+ > `jenkins_setup.sh`
 
- > `oc new-project jenkins`
- 
- > `oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/jenkins_setup.yaml`
+ > `pipeline_setup.sh`
 
-*AS A DEVELOPER OR ADMIN:*
-
- > `oc new-project pipelinedemo`
-
- > `oc new-app -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_instant_template.yaml`
-
-*If you don't like the CLI, another option is to create and project and import the template via the web console:*
- > Create a new project, select `Import YAML/JSON` and then upload the raw file from this repo: `pipeline_instant_template.yaml`.
 
 
 ## How to use this?
