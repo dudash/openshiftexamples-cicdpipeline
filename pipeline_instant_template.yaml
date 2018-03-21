@@ -1,1 +1,15 @@
-# TODO
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  labels:
+    name: openshiftexamples-cicdpipeline
+  name: openshiftexamples-cicdpipeline
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/dudash/openshiftexamples-cicdpipeline.git
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: jenkins-image-sample.groovy
