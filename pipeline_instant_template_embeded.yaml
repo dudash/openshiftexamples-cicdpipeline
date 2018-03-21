@@ -83,6 +83,17 @@ spec:
                         } // script
                     } // steps
                 } // stage
+                stage('test') {
+                    steps {
+                        script {
+                            openshift.withCluster() {
+                                openshift.withProject() {
+                                    echo "All tests passed"
+                                }
+                            }
+                        } // script
+                    } // steps
+                } // stage
                 stage('deploy') {
                     steps {
                         script {

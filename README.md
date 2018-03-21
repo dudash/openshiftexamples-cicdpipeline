@@ -1,7 +1,7 @@
 # OpenShift Examples - CI/CD Pipeline
 OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
 
-This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. The pipeline will perform an app build, do some automated testing, deploy the app to a QA environment, and then provide notification that the app is ready to be deployed to a separate production project.  If it fails at any point, the pipeline is stopped and the error is logged.
+This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. The pipeline will perform pre-build, then do an app source code build + containerization, do some automated testing, deploy the app to the dev environment, and then tag an image as ready so that external image stream triggers can pull the image into a staging environment.  If it fails at any point, the pipeline is stopped and the error is logged.  And you get detailed output from each stage of the pipeline.
 
 Here's what it looks like:
 
@@ -13,18 +13,13 @@ Here's what it looks like:
 ## How to put this in my cluster?
 First off, you need access to an OpenShift cluster.  Don't have an OpenShift cluster?  That's OK, download the CDK for free here: [https://developers.redhat.com/products/cdk/overview/][1]
 
-There are 2 scripts you can use for creating all the projects and required components for this example.
-
-This is an *optional* script that will create an separate CI/CD project for the Jenkins server to deploy into.  If you don't run this, OpenShift will autoprovision Jenkins within the pipeline-app project.  
- > `jenkins_setup.sh`
-
-(Wait for Jenkins to finish starting the `jenkins` pod before running the next script - `oc get pods`)
+There is a script you can use for creating all the projects and required components for this example.
 
  > `pipeline_setup.sh`
 
+Because no other Jenkins server is already configured for use, OpenShift will actually create one for use within this project.  We will wait until that jenkins server is ready - you can see status with `oc get pods`.
 
-## How to use this?
-Once you've created the pipeline (as described above) you can kick off a new pipeline build via the CLI or the web console.
+Once it's ready you can kick off a new pipeline build via the CLI or the web console.
 
 The CLI command is:
 > `oc start-build -F openshiftexamples-cicdpipeline`
@@ -81,6 +76,7 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 
 
 ## References and other links to check out
+* https://github.com/openshift/jenkins-client-plugin
 * https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html
 * https://docs.openshift.com/container-platform/3.7/dev_guide/dev_tutorials/openshift_pipeline.html
 * https://docs.openshift.com/container-platform/3.7/install_config/configuring_pipeline_execution.html
@@ -97,3 +93,5 @@ Under the terms of the MIT.
 [2]: https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html#jenkins-as-s2i-builder
 [3]: https://docs.openshift.com/container-platform/3.7/dev_guide/builds/triggering_builds.html#image-change-triggers
 [4]: https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html#using-the-jenkins-kubernetes-plug-in-to-run-jobs
+[5]: http://v1.uncontained.io/playbooks/continuous_delivery/external-jenkins-integration.html
+[6]: https://github.com/snowdrop/cloud-native-backend/tree/master/openshift

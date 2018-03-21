@@ -1,0 +1,196 @@
+===========================
+slave pod logs are:
+===========================
+alternatives version 1.7.4 - Copyright (C) 2001 Red Hat, Inc.
+This may be freely redistributed under the terms of the GNU Public License.
+
+usage: alternatives --install <link> <name> <path> <priority>
+                    [--initscript <service>]
+                    [--family <family>]
+                    [--slave <link> <name> <path>]*
+       alternatives --remove <name> <path>
+       alternatives --auto <name>
+       alternatives --config <name>
+       alternatives --display <name>
+       alternatives --set <name> <path>
+       alternatives --list
+
+common options: --verbose --test --help --usage --version --keep-missing
+                --altdir <directory> --admindir <directory>
+OPENSHIFT_JENKINS_JVM_ARCH='', CONTAINER_MEMORY_IN_MB='8796093022207', using /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.161-0.b14.el7_4.x86_64/jre/bin/java and 
+Downloading http://172.30.252.23:80//jnlpJars/remoting.jar  ...
+curl: (7) Failed connect to 172.30.252.23:80; Connection refused
+
+
+
+===========================
+And the pod dump is:
+===========================
+jdudash-OSX:openshiftexamples-cicdpipeline jason$ oc describe pod/nodejs-1sn38
+Name:   nodejs-1sn38
+Namespace:  pipeline-app
+Node:   localhost/192.168.65.2
+Start Time: Wed, 21 Mar 2018 16:25:02 -0400
+Labels:   jenkins=slave
+    jenkins/nodejs=true
+Annotations:  openshift.io/scc=restricted
+Status:   Running
+IP:   172.17.0.2
+Containers:
+  jnlp:
+    Container ID: docker://5cf0e6e38a9b80c38edd6b61ea81b81cccaef4252172ea82e540324ed9f04943
+    Image:    docker.io/openshift/jenkins-agent-nodejs-8-centos7:v3.10
+    Image ID:   docker-pullable://openshift/jenkins-agent-nodejs-8-centos7@sha256:54ee3d51191b9a4cc7ab6c4f9d8ce8a0027ea2f14027311b45e0d5972a488fcf
+    Port:   <none>
+    Args:
+      e643cebd02cfc3fec3d8e4a66ffc2ec041ea27e5fd3e1cf702098c7d10c9a8db
+      nodejs-1sn38
+    State:    Running
+      Started:    Wed, 21 Mar 2018 16:25:03 -0400
+    Ready:    True
+    Restart Count:  0
+    Environment:
+      JENKINS_SECRET: e643cebd02cfc3fec3d8e4a66ffc2ec041ea27e5fd3e1cf702098c7d10c9a8db
+      JENKINS_TUNNEL: 172.30.251.73:50000
+      JENKINS_NAME: nodejs-1sn38
+      JENKINS_URL:  http://172.30.252.23:80/
+      HOME:   /tmp
+    Mounts:
+      /tmp from workspace-volume (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from jenkins-token-hwc2r (ro)
+Conditions:
+  Type    Status
+  Initialized   True
+  Ready   True
+  PodScheduled  True
+Volumes:
+  workspace-volume:
+    Type: EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+  jenkins-token-hwc2r:
+    Type: Secret (a volume populated by a Secret)
+    SecretName: jenkins-token-hwc2r
+    Optional: false
+QoS Class:  BestEffort
+Node-Selectors: <none>
+Tolerations:  <none>
+Events:
+  FirstSeen LastSeen  Count From      SubObjectPath   Type    Reason      Message
+  --------- --------  ----- ----      -------------   --------  ------      -------
+  0s    0s    1 default-scheduler       Normal    Scheduled   Successfully assigned nodejs-1sn38 to localhost
+  0s    0s    1 kubelet, localhost        Normal    SuccessfulMountVolume MountVolume.SetUp succeeded for volume "workspace-volume"
+  0s    0s    1 kubelet, localhost        Normal    SuccessfulMountVolume MountVolume.SetUp succeeded for volume "jenkins-token-hwc2r"
+  0s    0s    1 kubelet, localhost  spec.containers{jnlp} Normal    Pulling     pulling image "docker.io/openshift/jenkins-agent-nodejs-8-centos7:v3.10"
+  <invalid> <invalid> 1 kubelet, localhost  spec.containers{jnlp} Normal    Pulled      Successfully pulled image "docker.io/openshift/jenkins-agent-nodejs-8-centos7:v3.10"
+  <invalid> <invalid> 1 kubelet, localhost  spec.containers{jnlp} Normal    Created     Created container
+  <invalid> <invalid> 1 kubelet, localhost  spec.containers{jnlp} Normal    Started     Started container
+
+
+===========================
+And Jenkins services:
+===========================
+jdudash-OSX:openshiftexamples-cicdpipeline jason$ oc describe svc
+Name:     jenkins
+Namespace:    pipeline-app
+Labels:     app=jenkins-persistent
+      template=jenkins-persistent-template
+Annotations:    service.alpha.openshift.io/dependencies=[{"name": "jenkins-jnlp", "namespace": "", "kind": "Service"}]
+      service.openshift.io/infrastructure=true
+Selector:   name=jenkins
+Type:     ClusterIP
+IP:     172.30.170.11
+Port:     web 80/TCP
+Endpoints:    172.17.0.3:8080
+Session Affinity: None
+Events:     <none>
+
+
+Name:     jenkins-jnlp
+Namespace:    pipeline-app
+Labels:     app=jenkins-persistent
+      template=jenkins-persistent-template
+Annotations:    <none>
+Selector:   name=jenkins
+Type:     ClusterIP
+IP:     172.30.234.43
+Port:     agent 50000/TCP
+Endpoints:    172.17.0.3:50000
+Session Affinity: None
+Events:     <none>
+
+
+
+===========================
+And Jenkins pod:
+===========================
+jdudash-OSX:openshiftexamples-cicdpipeline jason$ oc describe pod/jenkins-1-wcdn8
+Name:   jenkins-1-wcdn8
+Namespace:  pipeline-app
+Node:   localhost/192.168.65.2
+Start Time: Wed, 21 Mar 2018 16:11:13 -0400
+Labels:   deployment=jenkins-1
+    deploymentconfig=jenkins
+    name=jenkins
+Annotations:  kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicationController","namespace":"pipeline-app","name":"jenkins-1","uid":"0021d4fd-2d44-11e8-902f-aa37a4...
+    openshift.io/deployment-config.latest-version=1
+    openshift.io/deployment-config.name=jenkins
+    openshift.io/deployment.name=jenkins-1
+    openshift.io/scc=restricted
+Status:   Running
+IP:   172.17.0.3
+Created By: ReplicationController/jenkins-1
+Controlled By:  ReplicationController/jenkins-1
+Containers:
+  jenkins:
+    Container ID: docker://54dc9eeb5b44567fda33c8888648f2c6865003021a337fb62e9cad808a4898fe
+    Image:    openshift/jenkins-2-centos7@sha256:61bfc2b65f755879767be59343c2d523904870fb206e26ca4796eb5a1ae50d40
+    Image ID:   docker-pullable://openshift/jenkins-2-centos7@sha256:61bfc2b65f755879767be59343c2d523904870fb206e26ca4796eb5a1ae50d40
+    Port:   <none>
+    State:    Running
+      Started:    Wed, 21 Mar 2018 16:11:14 -0400
+    Ready:    True
+    Restart Count:  0
+    Limits:
+      memory: 512Mi
+    Requests:
+      memory: 512Mi
+    Liveness: http-get http://:8080/login delay=420s timeout=3s period=10s #success=1 #failure=30
+    Readiness:  http-get http://:8080/login delay=3s timeout=3s period=10s #success=1 #failure=3
+    Environment:
+      OPENSHIFT_ENABLE_OAUTH:   true
+      OPENSHIFT_ENABLE_REDIRECT_PROMPT: true
+      KUBERNETES_MASTER:    https://kubernetes.default:443
+      KUBERNETES_TRUST_CERTIFICATES:  true
+      JENKINS_SERVICE_NAME:   jenkins
+      JNLP_SERVICE_NAME:    jenkins-jnlp
+    Mounts:
+      /var/lib/jenkins from jenkins-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from jenkins-token-hwc2r (ro)
+Conditions:
+  Type    Status
+  Initialized   True
+  Ready   True
+  PodScheduled  True
+Volumes:
+  jenkins-data:
+    Type: PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  jenkins
+    ReadOnly: false
+  jenkins-token-hwc2r:
+    Type: Secret (a volume populated by a Secret)
+    SecretName: jenkins-token-hwc2r
+    Optional: false
+QoS Class:  Burstable
+Node-Selectors: <none>
+Tolerations:  <none>
+Events:
+  FirstSeen LastSeen  Count From      SubObjectPath     Type    Reason      Message
+  --------- --------  ----- ----      -------------     --------  ------      -------
+  17m   17m   1 default-scheduler         Normal    Scheduled   Successfully assigned jenkins-1-wcdn8 to localhost
+  17m   17m   1 kubelet, localhost          Normal    SuccessfulMountVolume MountVolume.SetUp succeeded for volume "vol02"
+  17m   17m   1 kubelet, localhost          Normal    SuccessfulMountVolume MountVolume.SetUp succeeded for volume "jenkins-token-hwc2r"
+  17m   17m   1 kubelet, localhost  spec.containers{jenkins}  Normal    Pulled      Container image "openshift/jenkins-2-centos7@sha256:61bfc2b65f755879767be59343c2d523904870fb206e26ca4796eb5a1ae50d40" already present on machine
+  17m   17m   1 kubelet, localhost  spec.containers{jenkins}  Normal    Created     Created container
+  17m   17m   1 kubelet, localhost  spec.containers{jenkins}  Normal    Started     Started container
+  17m   17m   2 kubelet, localhost  spec.containers{jenkins}  Warning   Unhealthy   Readiness probe failed: HTTP probe failed with statuscode: 503
+  17m   16m   4 kubelet, localhost  spec.containers{jenkins}  Warning   Unhealthy   Readiness probe failed: Get http://172.17.0.3:8080/login: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
