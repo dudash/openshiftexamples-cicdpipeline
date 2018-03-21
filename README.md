@@ -25,7 +25,7 @@ There are 2 scripts you can use for creating all the projects and required compo
 Once you've created the pipeline (as described above) you can kick off a new pipeline build via the CLI or the web console.
 
 The CLI command is:
-> `oc XXXX`
+> `oc start-build -F openshiftexamples-cicdpipeline`
 
 
 ## Why pipelines?
