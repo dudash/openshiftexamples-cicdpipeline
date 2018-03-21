@@ -10,4 +10,4 @@ oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n pipeline-a
 
 # Switch to the dev project and create the app from a template
 oc project pipeline-app-dev
-oc new-app -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_instant_template.yaml
+oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_instant_template.yaml
