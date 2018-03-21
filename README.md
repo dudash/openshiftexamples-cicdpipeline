@@ -20,7 +20,6 @@ There are 2 scripts you can use for creating all the projects and required compo
  > `pipeline_setup.sh`
 
 
-
 ## How to use this?
 Once you've created the pipeline (as described above) you can kick off a new pipeline build via the CLI or the web console.
 
@@ -53,22 +52,28 @@ The parts in action here are:
 	* Deployments via [image change triggers][3]
 
 
-## Want to do something like this in your projects?
+## Other considerations
 The Jenkins integration can come in a varitey of different flavors. See below for some disucssion on things to consider when doing this for your projects.
-* where does Jenkins live: in your project, in a global project, external to OpenShift
-	* openshift can autoprovision Jenkins
-	* you can pre-setup Jenkins to be shared by multiple projects
-	* if you've already got CI/CD setup via Jenkins and you just want to hook this demo up into that, you can!
-* how does the pipeline move images?
-* will you use [slave builders][4]?
-* where is the Jenkins file: in git, in the OpenShift template
-* what OpenShift integration hooks will you use?
-* does production have a separate cluster?
-* do you want to roll your own Jenkins image?
-	* the images that come with OpenShift are tested to work - if you roll your own to make sure any plugins used align with the platform version
-	* you can also [override the jenkins image with s2i][2]
-* coordinating individual microservice builds and running integration tests
-	* TBD
+* Where does Jenkins get deployed? e.g. in each project, shared in global project, external to OpenShift
+	* Openshift can autoprovision Jenkins
+	* You can pre-setup Jenkins to be shared by multiple projects
+	* If you've already got a Jenkins server and you just want to hook into it
+* How does the pipeline move images through dev/test/prod?
+	* triggers to pull?
+	* project to project?
+	* via tagging images?
+* Can everyone do anything with Jenkins or will you define roles and SCC/RoleBindinds to restrict actions?
+* Will you use [slave builders][4]?
+* Where is the Jenkinsfile: in git, embeded in an OpenShift BuildConfig template
+* What OpenShift integration hooks will you use?
+* Does production have a separate cluster?
+* Do you want to roll your own Jenkins image?
+	* The images that come with OpenShift are tested to work - if you roll your own to make sure any plugins used align with the platform version
+	* You can also [override the jenkins image with s2i][2]
+* Coordinating individual microservice builds and running integration tests
+* Performing coverage tests
+* Doing code scanning
+
 
 ## References and other links to check out
 * https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html
