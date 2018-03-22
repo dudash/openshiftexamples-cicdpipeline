@@ -39,8 +39,10 @@ Once it's ready, kick off a new pipeline build via the the web console or with t
 The parts in action here are:
 * A sample web app
 * OpenShift Jenkins [server image](https://github.com/openshift/jenkins#installation)
-	- Includes the [OpenShift client plugin](https://github.com/openshift/jenkins-client-plugin) (newer OpenShift installs)
-	- Includes the [OpenShift Jenkins plugin](https://github.com/openshift/jenkins-plugin) (older OpenShift installs)
+	- Includes the [OpenShift Jenkins client plugin](https://github.com/openshift/jenkins-client-plugin) (for newer OpenShift installs >= 3.7)
+	- Includes the [OpenShift Jenkins sync plugin](https://github.com/openshift/jenkins-sync-plugin)
+	- Includes the [OpenShift Jenkins auth plugin](https://github.com/openshift/jenkins-openshift-login-plugin)
+	- Includes the [OpenShift Jenkins plugin](https://github.com/openshift/jenkins-plugin) (for older OpenShift installs < 3.7)
 * OpenShift Jenkins [slave images](https://access.redhat.com/containers/#/search/jenkins%2520slave)
 * A Jenkinsfile (using OpenShift DSL)
 * Instant app template YAML file (to create/configure everything easily)
