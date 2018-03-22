@@ -1,7 +1,7 @@
 # OpenShift Examples - CI/CD Pipeline
 OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
 
-This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. And it showcases the tight intergration between Jenkins and OpenShift.  Namely the multiple plugins that enable shared auth, preform synchronization between Jenkins and OpenShift, allow for steps to be written in a readable and comprehensive syntax (DSL).
+This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. And it showcases the tight intergration between Jenkins and OpenShift.  Namely the multiple plugins that enable shared auth, preform synchronization between Jenkins and OpenShift, and allow for steps to be written in a readable and comprehensive syntax (DSL).
 
 When you kickoff this example, the flow is as follows: perform pre-build -> do an app source code build + containerization -> do some automated testing -> deploy the app to the dev environment -> tag an image so that external image stream triggers can pull the image into a staging environment.  
 
@@ -13,6 +13,14 @@ Here's what it looks like:
 ###### :information_source: Also be aware that prior to OpenShift 3.7 the Jenkins plugins differed and the DSL has been evolving.
 
 
+## Why pipelines?
+The most obvious benefits of CI/CD pipelines are:
+* Deliver software more efficiently and rapidly
+* Free up developer's time from manual build/release processes
+* Standardize a process that requires testing before release
+* Track the success and efficiency of releases plus gain insight into (and control over) each step
+
+
 ## How to put this in my cluster?
 First off, you need access to an OpenShift cluster.  Don't have an OpenShift cluster?  That's OK, download the CDK for free here: [https://developers.redhat.com/products/cdk/overview/][1]
 
@@ -20,20 +28,11 @@ There is a script you can use for creating all the projects and required compone
 
  > `pipeline_setup.sh`
 
-Because no other Jenkins server is already configured for use, OpenShift will actually create one for use within this project.  We will wait until that jenkins server is ready - you can see status with `oc get pods`.
+Because no other Jenkins server is already configured for use, OpenShift will actually create one for use within this project.  So before starting the pipeline, wait until that jenkins server is ready.  You can see status in the webconsole or with `oc get pods`.
 
-Once it's ready you can kick off a new pipeline build via the CLI or the web console.
+Once it's ready, kick off a new pipeline build via the the web console or with the CLI:
 
-The CLI command is:
 > `oc start-build -F openshiftexamples-cicdpipeline`
-
-
-## Why pipelines?
-The most obvious benefits of CI/CD pipelines are:
-* Deliver software more efficiently and rapidly
-* Free up developer's time from manual build/release processes
-* Standardize a process that requires testing before release
-* Track the success and efficiency of releases plus gain insight into (and control over) each step
 
 
 ## About the code / software architecture
