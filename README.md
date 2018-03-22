@@ -1,6 +1,3 @@
-# This repo is currently in work and changing hourly - I'll remove this warning when it's stable
-## 2018-03-22
-
 # OpenShift Examples - CI/CD Pipeline
 OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
 
@@ -12,7 +9,8 @@ Here's what it looks like:
 
 ![Screenshot](./.screens/ocppipeline.gif)
 
-###### :information_source: This example is based on OpenShift Container Platform version 3.7.  It could work with older versions but has not been tested.
+###### :information_source: This example is based on OpenShift Container Platform version 3.9.  It could work with older versions but has not been tested.
+###### :information_source: Also be aware that prior to OpenShift 3.7 the Jenkins plugins differed and the DSL has been evolving.
 
 
 ## How to put this in my cluster?
