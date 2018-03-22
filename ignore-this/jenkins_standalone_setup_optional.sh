@@ -12,9 +12,9 @@ oc new-app jenkins-ephemeral
 oc adm policy add-cluster-role-to-user edit system:serviceaccount:cicd:jenkins
 
 # Create pipeline demo projects
-oc new-project pipeline-app --display-name="Sandbox for Pipeline Demo"
-oc new-project pipeline-app-staging --display-name="Staging for Pipeline Demo"
-oc new-project pipeline-app-prod --display-name="Production for Pipeline Demo"
+oc new-project pipeline-app --display-name="Pipeline Example - Build"
+oc new-project pipeline-app-staging --display-name="Pipeline Example - Staging"
+oc new-project pipeline-app-prod --display-name="Pipeline Example - Production"
 
 # Switch to the dev project and create the pipeline build from a template
 oc project pipeline-app
