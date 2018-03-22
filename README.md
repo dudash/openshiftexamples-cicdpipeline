@@ -4,7 +4,9 @@
 # OpenShift Examples - CI/CD Pipeline
 OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
 
-This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. The pipeline will perform pre-build, then do an app source code build + containerization, do some automated testing, deploy the app to the dev environment, and then tag an image as ready so that external image stream triggers can pull the image into a staging environment.  If it fails at any point, the pipeline is stopped and the error is logged.  And you get detailed output from each stage of the pipeline.
+This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. And it showcases the tight intergration between Jenkins and OpenShift.  Namely the multiple plugins that enable shared auth, preform synchronization between Jenkins and OpenShift, allow for steps to be written in a readable and comprehensive syntax (DSL).
+
+When you kickoff this example, the flow is as follows: perform pre-build -> do an app source code build + containerization -> do some automated testing -> deploy the app to the dev environment -> tag an image so that external image stream triggers can pull the image into a staging environment.  
 
 Here's what it looks like:
 
@@ -78,15 +80,15 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 * Doing code scanning
 
 
-## References and other links to check out
+## References and other links to check out (trying to keep these in a best-first order)
 * https://github.com/openshift/jenkins-client-plugin
+* https://blog.openshift.com/building-declarative-pipelines-openshift-dsl-plugin/
+* https://github.com/OpenShiftDemos/openshift-cd-demo
 * https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html
 * https://docs.openshift.com/container-platform/3.7/dev_guide/dev_tutorials/openshift_pipeline.html
 * https://docs.openshift.com/container-platform/3.7/install_config/configuring_pipeline_execution.html
-* https://blog.openshift.com/using-openshift-pipeline-plugin-external-jenkins/
 * https://blog.openshift.com/cross-cluster-image-promotion-techniques/
 * https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/
-* https://github.com/OpenShiftDemos/openshift-cd-demo
 
 
 ## License

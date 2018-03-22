@@ -5,7 +5,7 @@ oc new-project pipeline-app-prod --display-name="Pipeline Example - Production"
 
 # Switch to the dev project and create the pipeline build from a template
 oc project pipeline-app
-oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_instant_template_external.yaml
+oc create -f https://raw.githubusercontent.com/dudash/openshiftexamples-cicdpipeline/master/pipeline_instant_external.yaml
 
 # Give this project an edit role on other related projects
 oc policy add-role-to-user edit -z jenkins -n pipeline-app-staging
