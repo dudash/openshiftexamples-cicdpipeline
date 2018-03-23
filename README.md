@@ -9,7 +9,7 @@ Here's what it looks like:
 
 ![Screenshot](./.screens/ocppipeline.gif)
 
-###### :information_source: This example is based on OpenShift Container Platform version 3.9.  It could work with older versions but has not been tested.
+###### :information_source: This example is based on OpenShift Container Platform version 3.7.  It could work with older versions but has not been tested.
 ###### :information_source: Also be aware that prior to OpenShift 3.7 the Jenkins plugins differed and the DSL has been evolving.
 
 
@@ -41,7 +41,7 @@ The parts in action here are:
 * OpenShift Jenkins [server image](https://github.com/openshift/jenkins#installation)
 	- Includes the [OpenShift Jenkins client plugin](https://github.com/openshift/jenkins-client-plugin) (for newer OpenShift installs >= 3.7)
 	- Includes the [OpenShift Jenkins sync plugin](https://github.com/openshift/jenkins-sync-plugin)
-	- Includes the [OpenShift Jenkins auth plugin](https://github.com/openshift/jenkins-openshift-login-plugin)
+	- Includes the [OpenShift Jenkins auth plugin](https://github.com/openshift/jenkins-openshift-login-plugin) (for OpenShift >= 3.4)
 	- Includes the [OpenShift Jenkins plugin](https://github.com/openshift/jenkins-plugin) (for older OpenShift installs < 3.7)
 * OpenShift Jenkins [slave images](https://access.redhat.com/containers/#/search/jenkins%2520slave)
 * A Jenkinsfile (using OpenShift DSL)

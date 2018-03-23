@@ -17,15 +17,16 @@ pipeline {
       }
     }
     options {
-        // set a timeout of 20 minutes for this pipeline
-        timeout(time: 20, unit: 'MINUTES')
+        // set a timeout of 10 minutes for this pipeline
+        timeout(time: 10, unit: 'MINUTES')
     }
     stages {
         stage('preamble') {
             steps {
                 script {
-                    openshift.withCluster() {
+                    openshift.withCluster("production") {
                         openshift.withProject("pipeline-app") {
+                            echo "Using cluster: ${openshift.cluster()}"
                             echo "Using project: ${openshift.project()}"
                         }
                     }
@@ -35,7 +36,7 @@ pipeline {
         stage('cleanup') {
             steps {
                 script {
-                    openshift.withCluster() {
+                    openshift.withCluster("production") {
                         openshift.withProject("pipeline-app") {
                             // delete everything with this template label
                             openshift.selector("all", [ template : TEMPLATENAME ]).delete()
@@ -51,7 +52,7 @@ pipeline {
         stage('create') {
             steps {
                 script {
-                    openshift.withCluster() {
+                    openshift.withCluster("production") {
                         openshift.withProject("pipeline-app") {
                             // create a new application from the TEMPLATEPATH
                             openshift.newApp(TEMPLATEPATH)
@@ -60,62 +61,15 @@ pipeline {
                 } // script
             } // steps
         } // stage
-        stage('build') {
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject("pipeline-app") {
-                            def builds = openshift.selector("bc", TEMPLATENAME).related('builds')
-                            builds.untilEach(1) {
-                                return (it.object().status.phase == "Complete")
-                            }
-                        }
-                    }
-                } // script
-            } // steps
-        } // stage
-        stage('test') {
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject("pipeline-app") {
-                            echo "All tests passed"
-                        }
-                    }
-                } // script
-            } // steps
-        } // stage
         stage('deploy') {
             steps {
                 script {
-                    openshift.withCluster() {
+                    openshift.withCluster("production") {
                         openshift.withProject("pipeline-app") {
                             def rm = openshift.selector("dc", TEMPLATENAME).rollout()
-                            openshift.selector("dc", TEMPLATENAME).related('pods').untilEach(1) {
+                            openshift.selector("dc", TEMPLATENAME).related('pods').untilEach(2) {
                                 return (it.object().status.phase == "Running")
                             }
-                        }
-                    }
-                } // script
-            } // steps
-        } // stage
-        stage('stageit') {
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject("pipeline-app") {                            
-                            userInput = input(
-                                id: 'Proceed1', message: 'Is this ready to send to QA?', parameters: [
-                                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you want to send to staging']
-                            ])
-                            echo "Autotagging this new image for a staging rollout: ${TEMPLATENAME}-staging:latest"
-                            // if everything else succeeded, tag the ${TEMPLATENAME}:latest image as ${TEMPLATENAME}-staging:latest
-                            // a pipeline build config for the staging environment can watch for the ${TEMPLATENAME}-staging:latest
-                            // image to change and then deploy it to the staging environment
-                            openshift.tag("${TEMPLATENAME}:latest", "${TEMPLATENAME}-staging:latest")
-                        }
-                        openshift.withProject("pipeline-app-staging") {
-                            echo "TODO" 
                         }
                     }
                 } // script
