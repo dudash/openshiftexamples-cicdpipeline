@@ -28,11 +28,19 @@ There is a script you can use for creating all the projects and required compone
 
  > `pipeline_setup.sh`
 
-Because no other Jenkins server is already configured for use, OpenShift will actually create one for use within this project.  So before starting the pipeline, wait until that jenkins server is ready.  You can see status in the webconsole or with `oc get pods`.
+Because no other Jenkins server is already configured for use, OpenShift will actually create one for you.  And before starting the pipeline, wait until that jenkins server is ready.  You can see status in the webconsole or with `oc get pods`.
 
-Once it's ready, kick off a new pipeline build via the the web console or with the CLI:
+But we need to do one more thing because of a current limitation with the plugin.  We have to give Jenkins a list of OpenShift namespaces to stay in sync with.  
+
+       Open the Jenkins webconsole
+       Goto: Manage Jenkins -> Configure System -> OpenShift Jenkins Sync -> Namespace 
+       Add 'pipeline-app pipeline-app-staging' to the list"
+
+OK, now we can kick off a new pipeline build via the the web console or with the CLI:
 
 > `oc start-build -F openshiftexamples-cicdpipeline`
+
+It will create the app in our pipeline-app project.  And once that succeeds and rollsout it will prompt us for input to determine if everything looks good to move to staging.  Yes = rollout to staging, No = fail the pipeline.
 
 
 ## About the code / software architecture

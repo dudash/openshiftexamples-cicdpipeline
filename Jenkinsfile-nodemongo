@@ -115,7 +115,7 @@ pipeline {
                             openshift.tag("${TEMPLATENAME}:latest", "${TEMPLATENAME}-staging:latest")
                         }
                         openshift.withProject("pipeline-app-staging") {
-                            echo "TODO" 
+                            echo "TODO deploy new-app to staging from -latest tag" 
                         }
                     }
                 } // script

@@ -1,7 +1,9 @@
 kind: "BuildConfig"
 apiVersion: "v1"
 metadata:
-  name: "nodejs-sample-pipeline"
+  labels:
+    name: openshiftexamples-cicdpipeline
+  name: openshiftexamples-cicdpipeline
 spec:
   strategy:
     jenkinsPipelineStrategy:
@@ -123,7 +125,7 @@ spec:
                                     openshift.tag("${TEMPLATENAME}:latest", "${TEMPLATENAME}-staging:latest")
                                 }
                                 openshift.withProject("pipeline-app-staging") {
-                                    echo "TODO" 
+                                    echo "TODO deploy new-app to staging from -latest tag" 
                                 }
                             }
                         } // script
