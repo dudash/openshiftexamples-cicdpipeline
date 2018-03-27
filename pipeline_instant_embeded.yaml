@@ -138,7 +138,7 @@ spec:
                         expression {
                             openshift.withCluster() {
                                 openshift.withProject("pipeline-app-staging") {
-                                    return !openshift.selector('dc', ${TEMPLATENAME}-staging).exists()
+                                    return !openshift.selector('dc', "${TEMPLATENAME}-staging").exists()
                                 }
                             }
                         }
@@ -147,6 +147,7 @@ spec:
                         script {
                             openshift.withCluster() {
                                 openshift.withProject("pipeline-app-staging") {
+                                    echo "Staging doesn't exsit - creating..."
                                     // create the app only when dc doesn't already exist
                                     // otherwise the image change tag will take care of rolling out updates
                                     openshift.newApp("openshift/mongodb-persistent")
