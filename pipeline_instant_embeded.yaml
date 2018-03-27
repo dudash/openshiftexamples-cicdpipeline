@@ -138,7 +138,7 @@ spec:
                         expression {
                             openshift.withCluster() {
                                 openshift.withProject("pipeline-app-staging") {
-                                    return !openshift.selector('dc', TEMPLATENAME).exists()
+                                    return !openshift.selector('dc', ${TEMPLATENAME}-staging).exists()
                                 }
                             }
                         }
@@ -150,9 +150,8 @@ spec:
                                     // create the app only when dc doesn't already exist
                                     // otherwise the image change tag will take care of rolling out updates
                                     openshift.newApp("openshift/mongodb-persistent")
-                                    openshift.newApp("pipeline-app/${TEMPLATENAME}-staging:latest")
+                                    openshift.newApp("pipeline-app/${TEMPLATENAME}-staging:latest").narrow('svc').expose()
                                     // TODO hook up secrets
-                                    // TODO create a route
                                 }
                             }
                         } // script
