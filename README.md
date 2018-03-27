@@ -1,7 +1,7 @@
 # OpenShift Examples - CI/CD Pipeline
 OpenShift can be a useful aide in creating a Continuous Integration (CI) / Continuous Delivery (CD) pipeline.  CI/CD is all about creating a streamlined process to move from a developer's code change to delivered operations-ready software (i.e. ready to deploy to production).  And a key part of CI/CD is the automation to make the process predicatable, repeatable, and easy.
 
-This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. And it showcases the tight intergration between Jenkins and OpenShift.  Namely the multiple plugins that enable shared auth, preform synchronization between Jenkins and OpenShift, and allow for steps to be written in a readable and comprehensive syntax (DSL).
+This git repo contains an intentionally simple example of a software pipeline to deploy a webapp. And it showcases the tight intergration between Jenkins and OpenShift.  Namely the multiple plugins that enable shared auth, preform synchronization between Jenkins and OpenShift, and allow for steps to be written in a readable and comprehensive syntax.
 
 When you kickoff this example, the flow is as follows: perform pre-build -> do an app source code build + containerization -> do some automated testing -> deploy the app to the dev environment -> tag an image so that external image stream triggers can pull the image into a staging environment.  
 
@@ -30,7 +30,7 @@ There is a script you can use for creating all the projects and required compone
 
 Because no other Jenkins server is already configured for use, OpenShift will actually create one for you.  And before starting the pipeline, wait until that jenkins server is ready.  You can see status in the webconsole or with `oc get pods`.
 
-But we need to do one more thing because of a current limitation with the plugin.  We have to give Jenkins a list of OpenShift namespaces to stay in sync with.  
+But we need to do one more thing because of a current limitation with the sync plugin.  We have to give Jenkins a list of OpenShift namespaces to stay in sync with.  
 
        Open the Jenkins webconsole
        Goto: Manage Jenkins -> Configure System -> OpenShift Jenkins Sync -> Namespace 
@@ -72,11 +72,12 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 	- triggers to pull?
 	- project to project?
 	- via tagging images?
+	- via the OpenShift plugin copying/creating?
 * Can everyone do anything with Jenkins or will you define roles and SCC/RoleBindinds to restrict actions?
 * Will you use [slave builders][4]?
 * Where is the Jenkinsfile?
 	- in git - easy to manage independently
-	- embeded in an OpenShift BuildConfig template - doesn't reqire a git fetch, editable within OpenShift
+	- embedded in an OpenShift BuildConfig template - doesn't require a git fetch, editable within OpenShift
 * What OpenShift integration hooks will you use?  
 	- git triggers, image change triggers, cron jobs, etc.
 * Does production have a separate cluster?
@@ -94,20 +95,27 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 ## References and other links to check out (trying to keep these in a best-first order)
 * https://github.com/openshift/jenkins-client-plugin
 * https://blog.openshift.com/building-declarative-pipelines-openshift-dsl-plugin/
-* https://github.com/OpenShiftDemos/openshift-cd-demo
+* https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
 * https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html
 * https://docs.openshift.com/container-platform/3.7/dev_guide/dev_tutorials/openshift_pipeline.html
 * https://docs.openshift.com/container-platform/3.7/install_config/configuring_pipeline_execution.html
-* https://blog.openshift.com/cross-cluster-image-promotion-techniques/
-* https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/
+* https://github.com/OpenShiftDemos/openshift-cd-demo
+
+
+## Advanced pipelines
+Let me know in the [github issues][https://github.com/dudash/openshiftexamples-cicdpipeline/issues] if you'd be interested in another example of advanced pipelines covering topics below.  And feel free to comment or suggest something else.
+* [Cross cluster image promotion][https://blog.openshift.com/cross-cluster-image-promotion-techniques/]
+* [BlueOcean][https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/]
+* [Fabric8][https://github.com/fabric8io/fabric8-pipeline-library]
+* [OpenShift.io][https://openshift.io]
 
 
 ## License
 Under the terms of the MIT.
+
 
 [1]: https://developers.redhat.com/products/cdk/overview/
 [2]: https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html#jenkins-as-s2i-builder
 [3]: https://docs.openshift.com/container-platform/3.7/dev_guide/builds/triggering_builds.html#image-change-triggers
 [4]: https://docs.openshift.com/container-platform/3.7/using_images/other_images/jenkins.html#using-the-jenkins-kubernetes-plug-in-to-run-jobs
 [5]: http://v1.uncontained.io/playbooks/continuous_delivery/external-jenkins-integration.html
-[6]: https://github.com/snowdrop/cloud-native-backend/tree/master/openshift

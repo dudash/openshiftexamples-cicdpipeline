@@ -103,7 +103,11 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject("pipeline-app") {                            
+                        openshift.withProject("pipeline-app") {   
+                            mail (
+                                to: 'jdudash@redhat.com',
+                                subject: "Pipeline service (${env.BUILD_NUMBER}) is awaiting promotion",
+                                body: "Please go to ${env.BUILD_URL}.");                         
                             userInput = input(
                                 id: 'Proceed1', message: 'Is this ready to send to QA?', parameters: [
                                 [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you want to send to staging']
@@ -115,7 +119,34 @@ pipeline {
                             openshift.tag("${TEMPLATENAME}:latest", "${TEMPLATENAME}-staging:latest")
                         }
                         openshift.withProject("pipeline-app-staging") {
-                            echo "TODO deploy new-app to staging from -latest tag" 
+                            echo "deploying new-app to staging from -latest tag"
+                            // the image change tag should take care of rolling out updates
+                            // creating stage project happens in the next
+                        }
+                    }
+                } // script
+            } // steps
+        } // stage
+        stage('create staging') {
+            when {
+                expression {
+                    openshift.withCluster() {
+                        openshift.withProject("pipeline-app-staging") {
+                            return !openshift.selector('dc', TEMPLATENAME).exists()
+                        }
+                    }
+                }
+            } // when
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("pipeline-app-staging") {
+                            // create the app only when dc doesn't already exist
+                            // otherwise the image change tag will take care of rolling out updates
+                            openshift.newApp("openshift/mongodb-persistent")
+                            openshift.newApp("pipeline-app/${TEMPLATENAME}-staging:latest")
+                            // TODO hook up secrets
+                            // TODO create a route
                         }
                     }
                 } // script
