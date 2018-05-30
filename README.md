@@ -24,7 +24,7 @@ The most obvious benefits of CI/CD pipelines are:
 ## How to put this in my cluster?
 First off, you need access to an OpenShift cluster.  Don't have an OpenShift cluster?  That's OK, download the CDK for free here: [https://developers.redhat.com/products/cdk/overview/][1]
 
-There is a script you can use for creating all the projects and required components for this example.
+Once you have been able to login into your cluster, clone this git repo locally and `cd` into the folder. There is a script you can use for creating all the projects and required components for this example.
 
  > `pipeline_setup.sh`
 
