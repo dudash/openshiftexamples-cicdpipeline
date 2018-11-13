@@ -103,11 +103,11 @@ The Jenkins integration can come in a varitey of different flavors. See below fo
 
 
 ## Advanced pipelines
-Let me know in the [github issues][https://github.com/dudash/openshiftexamples-cicdpipeline/issues] if you'd be interested in another example of advanced pipelines covering topics below.  And feel free to comment or suggest something else.
-* [Cross cluster image promotion][https://blog.openshift.com/cross-cluster-image-promotion-techniques/]
-* [BlueOcean][https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/]
-* [Fabric8][https://github.com/fabric8io/fabric8-pipeline-library]
-* [OpenShift.io][https://openshift.io]
+Let me know in the [github issues](https://github.com/dudash/openshiftexamples-cicdpipeline/issues) if you'd be interested in another example of advanced pipelines covering topics below.  And feel free to comment or suggest something else.
+* [Cross cluster image promotion](https://blog.openshift.com/cross-cluster-image-promotion-techniques/)
+* [BlueOcean](https://blog.openshift.com/openshift-pipelines-jenkins-blue-ocean/)
+* [Fabric8](https://github.com/fabric8io/fabric8-pipeline-library)
+* [OpenShift.io](https://openshift.io)
 
 
 ## License
